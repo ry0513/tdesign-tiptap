@@ -1,0 +1,34 @@
+.ProseMirror {
+  line-height: 1.625;
+  & > * {
+    margin: var(--t-tiptap-margin) 0;
+  }
+  blockquote {
+    border-left: 8px solid #f5ba18;
+    background-color: var(--td-gray-color-3);
+    padding: 16px;
+  }
+  hr {
+    background-color: var(--td-gray-color-4);
+    height: 1px;
+    border: none;
+  }
+  code.inline {
+    font-size: 0.875em;
+    background-color: var(--td-gray-color-4);
+    border-radius: 3px;
+    padding: 3px 5px;
+    margin: 0 3px;
+  }
+  ul,
+  ol {
+    margin-block-start: var(--t-tiptap-margin);
+    margin-block-end: var(--t-tiptap-margin);
+    margin-inline-start: 0px;
+    margin-inline-end: 0px;
+    padding-inline-start: 30px;
+  }
+  p {
+    margin: 0;
+  }
+}
