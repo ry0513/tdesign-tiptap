@@ -1,11 +1,13 @@
 <template>
-  <Popup trigger="click" destroyOnClose ref="colorPopup">
-    <CommandButton
-      :icon="icon"
-      :isActive="isActive"
-      :tooltip="tooltip"
-      :isDisabled="isDisabled"
-    />
+  <CommandButtonGroup
+    :isActive="isActive"
+    :tooltip="tooltip"
+    :isDisabled="isDisabled"
+    ref="buttonGroup"
+  >
+    <template #title>
+      <RIcon :name="icon" />
+    </template>
     <template #content>
       <div class="t-tiptap__menu__color">
         <ul class="t-tiptap-ul">
@@ -14,7 +16,7 @@
             @mousedown.prevent
             @click="
               command();
-              colorPopup!.close();
+              buttonGroup!.close();
             "
           >
             <div class="t-tiptap__menu__color-block"></div>
@@ -33,23 +35,23 @@
             @mousedown.prevent
             @click="
               command(color);
-              colorPopup!.close();
+              buttonGroup!.close();
             "
           >
             <div
               class="t-tiptap__menu__color-block"
               :style="{ background: color }"
-            ></div>
+            />
           </li>
         </ul>
       </div>
     </template>
-  </Popup>
+  </CommandButtonGroup>
 </template>
 <script lang="ts" setup>
 import { ref } from "vue";
-import CommandButton from "./CommandButton.vue";
-import { Popup } from "tdesign-vue-next";
+import RIcon from "../../Icon/index.vue";
+import CommandButtonGroup from "../CommandButtonGroup.vue";
 defineProps<{
   icon: string;
   command: Function;
@@ -60,5 +62,5 @@ defineProps<{
   colorOptions: string[][];
 }>();
 
-const colorPopup = ref<{ close: Function } | null>(null);
+const buttonGroup = ref<{ close: Function } | null>(null);
 </script>

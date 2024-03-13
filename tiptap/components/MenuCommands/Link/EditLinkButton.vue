@@ -7,7 +7,7 @@
     "
     :tooltip="editor.isActive('link') ? '编辑链接' : '插入链接'"
     icon="link"
-    :isActive="editor.isActive('link')"
+    :isActive="isActive"
   />
   <LinkDialog :editor="editor" :show="dialogShow" @close="dialogShow = false" />
 </template>
@@ -19,6 +19,7 @@ import LinkDialog from "./LinkDialog.vue";
 
 defineProps<{
   editor: Editor;
+  isActive: boolean;
 }>();
 
 const dialogShow = ref(false);

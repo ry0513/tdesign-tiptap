@@ -13,7 +13,7 @@
   </Tooltip>
 </template>
 <script lang="ts" setup>
-import RIcon from "../icon/index.vue";
+import RIcon from "../Icon/index.vue";
 import { Tooltip, Button } from "tdesign-vue-next";
 defineProps<{
   icon: string;

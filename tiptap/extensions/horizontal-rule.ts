@@ -1,4 +1,4 @@
-import type { Editor } from "@tiptap/core";
+import { Editor } from "@tiptap/core";
 import TiptapHorizontalRule, {
   HorizontalRuleOptions,
 } from "@tiptap/extension-horizontal-rule";

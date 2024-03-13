@@ -1,6 +1,6 @@
-import type { Editor } from "@tiptap/core";
+import { Editor } from "@tiptap/core";
 import TiptapLink, { LinkOptions } from "@tiptap/extension-link";
-import AddLinkButton from "../components/MenuCommands/Link/Index.vue";
+import EditLinkButton from "../components/MenuCommands/Link/EditLinkButton.vue";
 import { ExtensionsOptions } from "../types/extensionOptions";
 
 const Link = TiptapLink.extend<LinkOptions & ExtensionsOptions>({
@@ -12,10 +12,10 @@ const Link = TiptapLink.extend<LinkOptions & ExtensionsOptions>({
       openOnClick: false,
       button({ editor }: { editor: Editor }) {
         return {
-          component: AddLinkButton,
+          component: EditLinkButton,
           componentProps: {
             editor,
-            menuType: "bar",
+            isActive: editor.isActive("link"),
           },
         };
       },

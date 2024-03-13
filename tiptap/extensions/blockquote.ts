@@ -1,4 +1,4 @@
-import type { Editor } from "@tiptap/core";
+import { Editor } from "@tiptap/core";
 import TiptapBlockquote, {
   BlockquoteOptions,
 } from "@tiptap/extension-blockquote";
@@ -11,6 +11,7 @@ const Blockquote = TiptapBlockquote.extend<
   addOptions() {
     return {
       ...this.parent?.(),
+
       bubble: false,
       bar: true,
       button({ editor }: { editor: Editor }) {

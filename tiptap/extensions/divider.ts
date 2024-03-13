@@ -1,5 +1,5 @@
 import { Node } from "@tiptap/core";
-import CommandDivider from "../components/MenuCommands/CommandDivider.vue";
+import CommandDivider from "../components/MenuCommands/Divider/Divider.vue";
 import { ExtensionsOptions } from "../types/extensionOptions";
 
 const Divider = Node.create<ExtensionsOptions>({

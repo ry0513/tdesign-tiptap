@@ -1,12 +1,12 @@
-import type { Editor } from "@tiptap/core";
-import TiptapBold, { BoldOptions } from "@tiptap/extension-bold";
-import CommandHeadingGroup from "../components/MenuCommands/CommandHeadingGroup.vue";
+import { Editor, Extension } from "@tiptap/core";
+import CommandHeadingGroup from "../components/MenuCommands/Heading/HeadingGroup.vue";
 import { ExtensionsOptions } from "../types/extensionOptions";
+import Heading from "@tiptap/extension-heading";
 
-const Bold = TiptapBold.extend<BoldOptions & ExtensionsOptions>({
+const HeadingGroup = Extension.create<ExtensionsOptions>({
+  name: "heading-group",
   addOptions() {
     return {
-      ...this.parent?.(),
       bubble: false,
       bar: true,
       button({ editor }: { editor: Editor }) {
@@ -15,11 +15,15 @@ const Bold = TiptapBold.extend<BoldOptions & ExtensionsOptions>({
           componentProps: {
             tooltip: "标题",
             editor,
+            isActive: false,
           },
         };
       },
     };
   },
+  addExtensions() {
+    return [Heading];
+  },
 });
 
-export default Bold;
+export default HeadingGroup;

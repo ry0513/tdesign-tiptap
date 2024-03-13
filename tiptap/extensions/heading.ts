@@ -1,4 +1,4 @@
-import type { Editor, Extension } from "@tiptap/core";
+import { Editor, Extension } from "@tiptap/core";
 import TiptapHeading, {
   HeadingOptions,
   Level,

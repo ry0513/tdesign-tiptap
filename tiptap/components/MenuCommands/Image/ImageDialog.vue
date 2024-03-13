@@ -3,28 +3,25 @@
     :visible="show"
     attach="body"
     destroyOnClose
-    header="插入链接"
+    header="插入图片"
     @close="$emit('close')"
     @mousedown.prevent
     :closeOnOverlayClick="false"
   >
     <template #body>
       <Form :labelWidth="64">
-        <FormItem label="URL">
-          <Input placeholder="请输入URL" v-model="newAttrs.href" />
+        <FormItem label="图片地址">
+          <Input placeholder="请输入图片地址" v-model="newAttrs.src" />
         </FormItem>
-        <FormItem label="新窗口">
-          <Switch
-            :customValue="['_blank', '']"
-            v-model="newAttrs.target"
-          ></Switch>
+        <FormItem label="图片描述">
+          <Input placeholder="请输入图片地址" v-model="newAttrs.alt" />
         </FormItem>
       </Form>
     </template>
     <template #footer>
       <Button
         @click="
-          editor.commands.setLink(newAttrs);
+          editor.commands.setImage(newAttrs);
           editor.commands.focus();
           $emit('close');
         "
@@ -36,14 +33,7 @@
 
 <script setup lang="ts">
 import { Editor } from "@tiptap/vue-3";
-import {
-  Dialog,
-  Form,
-  FormItem,
-  Input,
-  Button,
-  Switch,
-} from "tdesign-vue-next";
+import { Dialog, Form, FormItem, Input, Button } from "tdesign-vue-next";
 import { ref, watch } from "vue";
 
 const props = defineProps<{
@@ -51,19 +41,12 @@ const props = defineProps<{
   show?: boolean;
 }>();
 
-const newAttrs = ref({ href: "", target: "_blank" });
+const newAttrs = ref({ src: "", alt: "" });
 
 watch(
   () => props.show,
   () => {
-    if (props.editor.isActive("link")) {
-      newAttrs.value = props.editor.getAttributes("link") as {
-        href: string;
-        target: string;
-      };
-    } else {
-      newAttrs.value = { href: "", target: "_blank" };
-    }
+    newAttrs.value = { src: "", alt: "" };
   }
 );
 defineEmits(["close"]);

@@ -18,3 +18,4 @@ export { default as TextAlign } from "./text-align";
 export { default as HorizontalRule } from "./horizontal-rule";
 export { default as Color } from "./color";
 export { default as Highlight } from "./highlight";
+export { default as Image } from "./image";

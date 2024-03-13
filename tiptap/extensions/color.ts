@@ -1,7 +1,7 @@
-import type { Editor, Extension } from "@tiptap/core";
+import { Editor, Extension } from "@tiptap/core";
 import TextStyle from "@tiptap/extension-text-style";
 import { ColorOptions, Color as TiptapColor } from "@tiptap/extension-color";
-import CommandColor from "../components/MenuCommands/CommandColor.vue";
+import CommandColor from "../components/MenuCommands/Color/Color.vue";
 import {
   ExtensionsColorOptions,
   ExtensionsOptions,

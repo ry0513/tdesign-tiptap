@@ -1,4 +1,4 @@
-import type { Editor } from "@tiptap/core";
+import { Editor } from "@tiptap/core";
 import TiptapOrderedList, {
   OrderedListOptions,
 } from "@tiptap/extension-ordered-list";

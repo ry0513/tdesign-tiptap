@@ -1,4 +1,4 @@
-import type { Editor, Extension } from "@tiptap/core";
+import { Editor, Extension } from "@tiptap/core";
 import TiptapTextAlign, {
   TextAlignOptions,
 } from "@tiptap/extension-text-align";
@@ -12,6 +12,8 @@ enum Tooltip {
   justify = "两端对齐",
 }
 
+type Alignment = "left" | "center" | "right" | "justify";
+
 const TextAlign = TiptapTextAlign.extend<TextAlignOptions & ExtensionsOptions>({
   addOptions() {
     return {
@@ -19,24 +21,30 @@ const TextAlign = TiptapTextAlign.extend<TextAlignOptions & ExtensionsOptions>({
       bubble: false,
       bar: true,
       types: ["paragraph", "heading"],
-      button({ editor, extension }: { editor: Editor; extension: Extension }) {
-        return extension.options.alignments.reduce(
-          (acc: any[], alignment: "left" | "center" | "right" | "justify") => {
+      button({
+        editor,
+        extension,
+        alignments,
+      }: {
+        editor: Editor;
+        extension: Extension;
+        alignments: Alignment[];
+      }) {
+        return (alignments || extension.options.alignments).reduce(
+          (acc: any[], alignment: Alignment) => {
             return [
               ...acc,
               {
                 component: CommandButton,
                 componentProps: {
                   command: () => {
-                    if (editor.isActive({ textAlign: alignment })) {
-                      editor.commands.unsetTextAlign();
-                    } else {
-                      editor.commands.setTextAlign(alignment);
-                    }
+                    editor.commands.setTextAlign(alignment);
                   },
                   isActive: editor.isActive({ textAlign: alignment }),
                   icon: `text-align-${alignment}`,
                   tooltip: Tooltip[alignment],
+                  isDisabled:
+                    alignment === "justify" && editor.isActive("image"),
                 },
               },
             ];
@@ -46,6 +54,20 @@ const TextAlign = TiptapTextAlign.extend<TextAlignOptions & ExtensionsOptions>({
       },
     };
   },
+  // addCommands() {
+  //   return {
+  //     setTextAlign:
+  //       (alignment: string) =>
+  //       ({ commands }) => {
+  //         if (!this.options.alignments.includes(alignment)) {
+  //           return false;
+  //         }
+  //         return this.options.types.every((type) => {
+  //           return commands.updateAttributes(type, { textAlign: alignment });
+  //         });
+  //       },
+  //   };
+  // },
 });
 
 export default TextAlign;

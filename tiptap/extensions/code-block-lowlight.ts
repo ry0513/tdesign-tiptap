@@ -1,4 +1,4 @@
-import type { Editor } from "@tiptap/core";
+import { Editor } from "@tiptap/core";
 import TiptapCodeBlockLowlight, {
   CodeBlockLowlightOptions,
 } from "@tiptap/extension-code-block-lowlight";

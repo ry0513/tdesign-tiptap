@@ -1,4 +1,4 @@
-import type { Editor } from "@tiptap/core";
+import { Editor } from "@tiptap/core";
 import TiptapBulletList, {
   BulletListOptions,
 } from "@tiptap/extension-bullet-list";

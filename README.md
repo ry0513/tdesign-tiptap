@@ -6,6 +6,9 @@
 - 使用 [tdesign-vue-next](https://tdesign.tencent.com/vue-next) 组件库
 - 支持 TypeScript 
 
+## Demo
+[https://demo.tnloy.cc/tdesign-tiptap](https://demo.tnloy.cc/tdesign-tiptap)
+
 ## 安装
 
 ### 下载插件
@@ -18,6 +21,7 @@ pnpm i tdesign-tiptap
 
 
 ### 安装插件
+
 #### 局部引入
 
 ```vue
@@ -89,7 +93,8 @@ const content = ref(`
 - `Color`
 - `Highlight`
 - `Heading`
-- `HeadingGroup` (自定义扩展，将`heading` 合并为下拉菜单)
+- `HeadingGroup` (自定义扩展，将 `Heading` 合并为下拉菜单)
+- `Image`
 - `Divider` (自定义扩展，菜单栏或气泡菜单中的分割符)
 - 其他扩展开发中...
 

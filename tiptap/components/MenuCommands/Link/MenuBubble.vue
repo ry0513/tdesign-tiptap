@@ -1,9 +1,7 @@
 <template>
-  <EditLinkButton :editor="editor" />
-  <template v-if="editor.isActive('link') && menuType === 'bubble'">
-    <UnLinkButton :editor="editor" />
-    <OpenLinkButton :url="editor.getAttributes('link').href" />
-  </template>
+  <OpenLinkButton :url="editor.getAttributes('link').href" />
+  <EditLinkButton :editor="editor" :isActive="false" />
+  <UnLinkButton :editor="editor" />
 </template>
 <script lang="ts" setup>
 import { Editor } from "@tiptap/vue-3";
@@ -13,6 +11,5 @@ import UnLinkButton from "./UnLinkButton.vue";
 
 defineProps<{
   editor: Editor;
-  menuType: string;
 }>();
 </script>

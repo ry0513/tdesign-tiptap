@@ -1,4 +1,4 @@
-import type { Editor } from "@tiptap/core";
+import { Editor } from "@tiptap/core";
 import TiptapStrike, { StrikeOptions } from "@tiptap/extension-strike";
 import CommandButton from "../components/MenuCommands/CommandButton.vue";
 import { ExtensionsOptions } from "../types/extensionOptions";

@@ -1,12 +1,13 @@
 :root {
   --t-tiptap-border-color: #dcdfe6;
-  --t-tiptap-border-radius: 5px;
+  --t-tiptap-img-border-color: #074beb;
+  --t-tiptap-radius: 5px;
   --t-tiptap-margin: 10px;
 }
 
 .t-tiptap {
   box-sizing: border-box;
-  border-radius: var(--t-tiptap-border-radius);
+  border-radius: var(--t-tiptap-radius);
   border: 1px var(--t-tiptap-border-color) solid;
   display: flex;
   flex-direction: column;
@@ -25,6 +26,14 @@
   .ProseMirror {
     outline: none;
   }
+
+  img.ProseMirror-selectednode {
+    outline: 3px solid var(--t-tiptap-img-border-color);
+  }
+  img {
+    vertical-align: bottom;
+  }
+
   .t-icon {
     width: 18px;
     height: 18px;
@@ -47,6 +56,13 @@
     margin: 2px;
   }
   &__menu-button {
+    &__group {
+      display: flex;
+      flex-direction: column;
+    }
+    &__group-item {
+      margin: 0;
+    }
     &.t-button {
       margin: 5px;
       padding-left: 6px;
@@ -120,7 +136,7 @@
     align-items: center;
     padding: 3px;
     background-color: #fff;
-    border-radius: var(--t-tiptap-border-radius);
+    border-radius: var(--t-tiptap-radius);
     border: 1px var(--t-tiptap-border-color) solid;
     max-width: 90vw;
     overflow: auto;
@@ -129,5 +145,8 @@
   &__content {
     padding: 10px;
     line-height: 1.667;
+    height: 500px;
+    overflow-y: auto;
+    position: relative;
   }
 }

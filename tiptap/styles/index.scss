@@ -3,10 +3,16 @@
   & > * {
     margin: var(--t-tiptap-margin) 0;
   }
+  hr {
+    margin: var(--t-tiptap-margin) 0;
+  }
   blockquote {
     border-left: 8px solid #f5ba18;
     background-color: var(--td-gray-color-3);
     padding: 16px;
+    & > p {
+      margin: 0;
+    }
   }
   hr {
     background-color: var(--td-gray-color-4);
@@ -27,8 +33,5 @@
     margin-inline-start: 0px;
     margin-inline-end: 0px;
     padding-inline-start: 30px;
-  }
-  p {
-    margin: 0;
   }
 }
