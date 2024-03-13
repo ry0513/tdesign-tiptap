@@ -1,6 +1,6 @@
 {
   "name": "tdesign-tiptap",
-  "version": "0.1.0",
+  "version": "0.1.0-alpha.1",
   "type": "module",
   "author": "RuoYu",
   "description": "A rich-text editor using tiptap and tdesign for Vue3",
@@ -16,7 +16,8 @@
   "license": "MIT",
   "scripts": {
     "dev": "vite",
-    "build": "vue-tsc && vite build",
+    "build:lib": "vue-tsc && vite build",
+    "build:demo": "vue-tsc && cross-env VITE_BUILD_TAG=demo vite build",
     "preview": "vite preview"
   },
   "main": "./lib/tdesign-tiptap.umd.cjs",
@@ -56,6 +57,7 @@
   },
   "devDependencies": {
     "@vitejs/plugin-vue": "^5.0.4",
+    "cross-env": "^7.0.3",
     "sass": "^1.71.1",
     "tippy.js": "^6.3.7",
     "typescript": "^5.3.3",

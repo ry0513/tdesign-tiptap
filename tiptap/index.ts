@@ -9,5 +9,6 @@ const TTiptapPlugin: Plugin = {
 };
 
 export * from "./extensions";
+export * from "./types/extensionOptionsFn";
 export { TTiptapPlugin, TTiptap };
 export default TTiptapPlugin;

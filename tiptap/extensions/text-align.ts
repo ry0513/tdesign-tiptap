@@ -54,20 +54,6 @@ const TextAlign = TiptapTextAlign.extend<TextAlignOptions & ExtensionsOptions>({
       },
     };
   },
-  // addCommands() {
-  //   return {
-  //     setTextAlign:
-  //       (alignment: string) =>
-  //       ({ commands }) => {
-  //         if (!this.options.alignments.includes(alignment)) {
-  //           return false;
-  //         }
-  //         return this.options.types.every((type) => {
-  //           return commands.updateAttributes(type, { textAlign: alignment });
-  //         });
-  //       },
-  //   };
-  // },
 });
 
 export default TextAlign;

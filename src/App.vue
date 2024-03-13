@@ -3,6 +3,9 @@
     <h1 style="text-align: center">Tdesign-Tiptap</h1>
     <t-tiptap v-model="content" :extensions="textExtensions" />
   </div>
+  <div class="tdesign-tiptap">
+    <!-- <div class="ProseMirror" v-html="content"></div> -->
+  </div>
 </template>
 
 <script setup lang="ts">
@@ -48,7 +51,9 @@ const textExtensions = [
   Link.configure({ bubble: true }),
   Color,
   Highlight,
-  Image.configure({ bubble: true }),
+  Image.configure({
+    bubble: true,
+  }),
 ];
 const content = ref(
   `<h1>标题-H1</h1><h2>标题-H2</h2><h3>标题-H3</h3><hr><p><strong>加粗  </strong><em>斜体 </em><s> 删除线 </s> <u>下划线</u></p><hr><p>左对齐</p><p style="text-align: center">居中对齐</p><p style="text-align: right">右对齐</p><hr><ul><li><p>首先</p></li><li><p>其次</p></li><li><p>最后</p></li></ul><hr><ol><li><p>首先</p></li><li><p>其次</p></li><li><p>最后</p></li></ol><hr><p>一个关于 <code class="inline">CodeBlockLowlight</code> 的代码片段</p><pre><code class="language-ts">import { Editor } from "@tiptap/core";
@@ -92,9 +97,13 @@ export default CodeBlockLowlight;
 </script>
 
 <style>
+body {
+  margin: 0;
+  padding: 0;
+}
 .tdesign-tiptap {
   margin: 50px auto;
-  width: 1200px;
+  width: 1000px;
   padding: 10px;
 }
 </style>
