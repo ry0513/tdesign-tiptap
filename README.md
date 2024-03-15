@@ -78,25 +78,25 @@ const content = ref(`
 ### 扩展列表
 目前支持的扩展
 
-- `Bold`
-- `Italic`
-- `Strike`
-- `Underline`
-- `Blockquote`
-- `TextAlign`
-- `HorizontalRule`
-- `Code`
-- `CodeBlockLowlight`
-- `BulletList`
-- `OrderedList`
-- `Link`
-- `Color`
-- `Highlight`
-- `Heading`
-- `HeadingGroup` (自定义扩展，将 `Heading` 合并为下拉菜单)
-- `Image`
-- `Divider` (自定义扩展，菜单栏或气泡菜单中的分割符)
-- 其他扩展开发中...
+  - `Heading`
+  - `HeadingGroup` (自定义扩展，将 `Heading` 合并为下拉菜单)
+  - `Divider` (自定义扩展，菜单栏或气泡菜单中的分割符)
+  - `Blockquote`
+  - `Code`
+  - `CodeBlockLowlight`
+  - `BulletList`
+  - `OrderedList`
+  - `Bold`
+  - `Italic`
+  - `Strike`
+  - `Underline`
+  - `Link`
+  - `TextAlign`
+  - `HorizontalRule`
+  - `Color`
+  - `Highlight`
+  - `Image`
+  - 其他扩展开发中...
 
 ### 扩展属性
 #### bar

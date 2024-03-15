@@ -1,16 +1,20 @@
 <template>
   <CommandButton
-    v-for="item in ['25%', '50%', '100%']"
-    :key="item"
+    v-for="width in ['25%', '50%', '100%']"
+    :key="width"
     :command="
-      () =>
-        editor.commands.updateAttributes('image', {
-          width: item,
-        })
+      () => {
+        editor
+          .chain()
+          .focus()
+          .updateAttributes('image', { width })
+          .setNodeSelection(editor.view.state.selection.anchor)
+          .run();
+      }
     "
-    :tooltip="item"
-    :icon="`reSize-${item.slice(0, -1)}`"
-    :isActive="editor.getAttributes('image').width === item"
+    :tooltip="width"
+    :icon="`reSize-${width.slice(0, -1)}`"
+    :isActive="editor.getAttributes('image').width === width"
   />
 </template>
 <script lang="ts" setup>
