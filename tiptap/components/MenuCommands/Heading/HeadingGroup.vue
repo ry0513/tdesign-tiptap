@@ -42,12 +42,20 @@ import CommandButtonGroup from "../CommandButtonGroup.vue";
 import CommandButtonGroupItem from "../CommandButtonGroupItem.vue";
 import RIcon from "../../Icon/index.vue";
 import { headOption } from "../../../option/headOption";
-const props = defineProps<{
-  isActive: boolean;
-  tooltip: string;
-  isDisabled?: boolean;
-  editor: Editor;
-}>();
+const props = withDefaults(
+  defineProps<{
+    isActive?: boolean;
+    tooltip?: string;
+    isDisabled?: boolean;
+    editor: Editor;
+  }>(),
+  {
+    isActive: false,
+    tooltip: "",
+    isDisabled: false,
+  }
+);
+
 const buttonGroup = ref<{ close: Function } | null>(null);
 const level = computed(() => props.editor.getAttributes("heading").level);
 </script>

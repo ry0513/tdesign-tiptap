@@ -1,6 +1,6 @@
 <template>
   <OpenLinkButton :url="editor.getAttributes('link').href" />
-  <EditLinkButton :editor="editor" :isActive="false" />
+  <EditLinkButton :editor="editor" />
   <UnLinkButton :editor="editor" />
 </template>
 <script lang="ts" setup>

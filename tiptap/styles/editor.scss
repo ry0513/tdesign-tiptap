@@ -11,9 +11,9 @@
   border: 1px var(--t-tiptap-border-color) solid;
   display: flex;
   flex-direction: column;
-  max-height: 100%;
   position: relative;
   width: 100%;
+  height: 100%;
   &__scroll {
     scrollbar-color: var(--td-scrollbar-color) transparent;
     scrollbar-width: thin;
@@ -22,11 +22,9 @@
       height: 6px;
     }
   }
-
   .ProseMirror {
     outline: none;
   }
-
   img.ProseMirror-selectednode {
     outline: 3px solid var(--t-tiptap-img-border-color);
   }
@@ -54,6 +52,7 @@
     width: 2px;
     height: var(--td-comp-size-m);
     margin: 2px;
+    vertical-align: middle;
   }
   &__menu-button {
     &__group {
@@ -82,6 +81,7 @@
     padding: 4px 0px;
     max-width: 50vw;
     overflow: auto;
+
     ul {
       display: flex;
     }
@@ -124,11 +124,11 @@
   }
 
   &__menu-bar {
-    display: flex;
-    align-items: center;
     padding: 3px;
     border-bottom: 1px var(--t-tiptap-border-color) solid;
     overflow-x: auto;
+    white-space: nowrap;
+    flex: 0 0 auto;
   }
 
   &__menu-bubble {
@@ -145,7 +145,7 @@
   &__content {
     padding: 10px;
     line-height: 1.667;
-    height: 500px;
+    height: 100%;
     overflow-y: auto;
     position: relative;
   }

@@ -19,10 +19,15 @@ import { Editor, Extensions } from "@tiptap/vue-3";
 import ImageReSize from "./ImageReSize.vue";
 // import CommandButton from "../CommandButton.vue";
 
-const props = defineProps<{
-  editor: Editor;
-  extensions: Extensions;
-}>();
+const props = withDefaults(
+  defineProps<{
+    editor: Editor;
+    extensions?: Extensions;
+  }>(),
+  {
+    extensions: () => [],
+  }
+);
 
 const generateCommandButtonComponentSpecs = () => {
   const extension = props.extensions.filter(

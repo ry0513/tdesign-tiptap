@@ -3,7 +3,6 @@
     :command="editor.commands.unsetLink"
     tooltip="取消链接"
     icon="unlink"
-    :isActive="false"
   />
 </template>
 <script lang="ts" setup>

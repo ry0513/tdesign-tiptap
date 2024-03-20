@@ -53,11 +53,16 @@ import {
 import LinkMenuBubble from "../MenuCommands/Link/MenuBubble.vue";
 import ImageMenuBubble from "../MenuCommands/Image/MenuBubble.vue";
 
-const props = defineProps<{
-  editor: Editor;
-  extensions: Extensions;
-  tiptapContent: Element | null;
-}>();
+const props = withDefaults(
+  defineProps<{
+    editor: Editor;
+    extensions?: Extensions;
+    tiptapContent: Element | null;
+  }>(),
+  {
+    extensions: () => [],
+  }
+);
 
 const tippyOptions: any = {
   maxWidth: "100%",

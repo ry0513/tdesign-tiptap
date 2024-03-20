@@ -1,10 +1,10 @@
 <template>
   <div class="tdesign-tiptap">
     <h1 style="text-align: center">Tdesign-Tiptap</h1>
-    <t-tiptap v-model="content" :extensions="textExtensions" />
+    <t-tiptap v-model:content="content" :extensions="textExtensions" />
   </div>
   <div class="tdesign-tiptap">
-    <!-- <div class="ProseMirror" v-html="content"></div> -->
+    <div class="ProseMirror" v-html="content"></div>
   </div>
 </template>
 
@@ -103,7 +103,8 @@ body {
 }
 .tdesign-tiptap {
   margin: 50px auto;
-  width: 1000px;
+  max-width: 900px;
+  height: 600px;
   padding: 10px;
 }
 </style>

@@ -17,10 +17,15 @@ import { Editor } from "@tiptap/vue-3";
 import CommandButton from "../CommandButton.vue";
 import LinkDialog from "./LinkDialog.vue";
 
-defineProps<{
-  editor: Editor;
-  isActive: boolean;
-}>();
+withDefaults(
+  defineProps<{
+    editor: Editor;
+    isActive?: boolean;
+  }>(),
+  {
+    isActive: false,
+  }
+);
 
 const dialogShow = ref(false);
 </script>

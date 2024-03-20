@@ -22,7 +22,6 @@ import { Editor } from "@tiptap/vue-3";
 import CommandButton from "../CommandButton.vue";
 
 defineProps<{
-  url?: string;
   editor: Editor;
 }>();
 </script>

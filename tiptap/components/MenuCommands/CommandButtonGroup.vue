@@ -26,12 +26,18 @@
 <script lang="ts" setup>
 import { Tooltip, Button, Popup } from "tdesign-vue-next";
 import { ref } from "vue";
-
-defineProps<{
-  isActive: boolean;
-  tooltip: string;
-  isDisabled?: boolean;
-}>();
+withDefaults(
+  defineProps<{
+    isActive?: boolean;
+    tooltip?: string;
+    isDisabled?: boolean;
+  }>(),
+  {
+    isActive: false,
+    tooltip: "",
+    isDisabled: false,
+  }
+);
 
 const bottomGroupPopup = ref<{ close: Function } | null>(null);
 

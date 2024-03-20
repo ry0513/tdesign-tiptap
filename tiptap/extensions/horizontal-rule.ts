@@ -20,7 +20,6 @@ const HorizontalRule = TiptapHorizontalRule.extend<
             command: () => {
               editor.commands.setHorizontalRule();
             },
-            isActive: false,
             icon: "horizontal-rule",
             tooltip: "分割线",
           },

@@ -46,9 +46,17 @@ import {
 } from "tdesign-vue-next";
 import { ref, watch } from "vue";
 
-const props = defineProps<{
-  editor: Editor;
-  show?: boolean;
+const props = withDefaults(
+  defineProps<{
+    editor: Editor;
+    show?: boolean;
+  }>(),
+  {
+    show: false,
+  }
+);
+defineEmits<{
+  close: [void];
 }>();
 
 const newAttrs = ref({ href: "", target: "_blank" });
@@ -66,5 +74,4 @@ watch(
     }
   }
 );
-defineEmits(["close"]);
 </script>

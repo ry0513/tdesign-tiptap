@@ -52,15 +52,20 @@
 import { ref } from "vue";
 import RIcon from "../../Icon/index.vue";
 import CommandButtonGroup from "../CommandButtonGroup.vue";
-defineProps<{
-  icon: string;
-  command: Function;
-  isActive: boolean;
-  tooltip: string;
-  isDisabled?: boolean;
-  currentColor?: string;
-  colorOptions: string[][];
-}>();
+withDefaults(
+  defineProps<{
+    icon: string;
+    command: Function;
+    isActive: boolean;
+    tooltip: string;
+    isDisabled?: boolean;
+    currentColor?: string;
+    colorOptions: string[][];
+  }>(),
+  {
+    isDisabled: false,
+  }
+);
 
 const buttonGroup = ref<{ close: Function } | null>(null);
 </script>

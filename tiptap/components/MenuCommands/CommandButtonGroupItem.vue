@@ -16,9 +16,16 @@
 <script lang="ts" setup>
 import { Button } from "tdesign-vue-next";
 import RIcon from "../Icon/index.vue";
-defineProps<{
-  isActive?: boolean;
-  isDisabled?: boolean;
-  icon: string;
-}>();
+withDefaults(
+  defineProps<{
+    isActive?: boolean;
+    icon?: string;
+    isDisabled?: boolean;
+  }>(),
+  {
+    isActive: false,
+    icon: "",
+    isDisabled: false,
+  }
+);
 </script>

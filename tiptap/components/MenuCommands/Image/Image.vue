@@ -31,14 +31,22 @@ import CommandButtonGroupItem from "../CommandButtonGroupItem.vue";
 import RIcon from "../../Icon/index.vue";
 import ImageDialog from "./ImageDialog.vue";
 
-const props = defineProps<{
-  isActive: boolean;
-  tooltip: string;
-  isDisabled?: boolean;
-  editor: Editor;
-  icon: string;
-  extension: Extension;
-}>();
+const props = withDefaults(
+  defineProps<{
+    isActive?: boolean;
+    tooltip?: string;
+    isDisabled?: boolean;
+    editor: Editor;
+    icon?: string;
+    extension: Extension;
+  }>(),
+  {
+    isActive: false,
+    tooltip: "",
+    isDisabled: false,
+    icon: "",
+  }
+);
 
 const dialogShow = ref(false);
 const uploadImage = () => {
@@ -49,13 +57,9 @@ const uploadImage = () => {
     const target = e.target as HTMLInputElement;
     if (target.files) {
       const file = target.files[0];
-      console.log(file);
-      console.log(props.extension.options.customUpload);
-
       props.extension.options.customUpload(
         file,
         ({ url, alt }: { url: string; alt: string }) => {
-          console.log("回调函数");
           props.editor.commands.setImage({
             src: url,
             alt,

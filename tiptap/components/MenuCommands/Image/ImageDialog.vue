@@ -36,9 +36,18 @@ import { Editor } from "@tiptap/vue-3";
 import { Dialog, Form, FormItem, Input, Button } from "tdesign-vue-next";
 import { ref, watch } from "vue";
 
-const props = defineProps<{
-  editor: Editor;
-  show?: boolean;
+const props = withDefaults(
+  defineProps<{
+    editor: Editor;
+    show?: boolean;
+  }>(),
+  {
+    show: false,
+  }
+);
+
+defineEmits<{
+  close: [void];
 }>();
 
 const newAttrs = ref({ src: "", alt: "" });
@@ -49,5 +58,4 @@ watch(
     newAttrs.value = { src: "", alt: "" };
   }
 );
-defineEmits(["close"]);
 </script>

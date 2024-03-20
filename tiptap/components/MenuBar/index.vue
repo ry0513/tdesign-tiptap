@@ -13,10 +13,15 @@
 <script lang="ts" setup>
 import { Editor, Extensions } from "@tiptap/vue-3";
 
-const props = defineProps<{
-  editor: Editor;
-  extensions: Extensions;
-}>();
+const props = withDefaults(
+  defineProps<{
+    editor: Editor;
+    extensions?: Extensions;
+  }>(),
+  {
+    extensions: () => [],
+  }
+);
 
 const generateCommandButtonComponentSpecs = () => {
   const extensionManager = props.extensions;

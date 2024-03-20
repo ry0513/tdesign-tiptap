@@ -3,6 +3,7 @@ import vue from "@vitejs/plugin-vue";
 import path from "path";
 import dts from "vite-plugin-dts";
 import svgLoader from "vite-svg-loader";
+import viteCompression from "vite-plugin-compression";
 
 const isDemo = process.env.VITE_BUILD_TAG === "demo";
 
@@ -13,7 +14,7 @@ export default defineConfig({
   plugins: [
     vue(),
     isDemo
-      ? null
+      ? viteCompression()
       : dts({
           include: ["tiptap"],
           insertTypesEntry: true,

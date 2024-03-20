@@ -2,7 +2,7 @@
   <Tooltip :content="tooltip" destroyOnClose placement="bottom">
     <Button
       variant="text"
-      @click="command && command()"
+      @click="command()"
       @mousedown.prevent
       class="t-tiptap__menu-button"
       :class="{ isActive }"
@@ -15,11 +15,20 @@
 <script lang="ts" setup>
 import RIcon from "../Icon/index.vue";
 import { Tooltip, Button } from "tdesign-vue-next";
-defineProps<{
-  icon: string;
-  command?: Function;
-  isActive: boolean;
-  tooltip: string;
-  isDisabled?: boolean;
-}>();
+withDefaults(
+  defineProps<{
+    icon?: string;
+    command?: Function;
+    isActive?: boolean;
+    tooltip?: string;
+    isDisabled?: boolean;
+  }>(),
+  {
+    icon: "",
+    command: () => {},
+    isActive: false,
+    tooltip: "",
+    isDisabled: false,
+  }
+);
 </script>
