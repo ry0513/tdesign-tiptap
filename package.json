@@ -1,0 +1,81 @@
+{
+  "name": "tdesign-tiptap",
+  "version": "0.3.0",
+  "type": "module",
+  "author": "RuoYu",
+  "description": "A rich-text editor using tiptap and tdesign for Vue3",
+  "keywords": [
+    "editor",
+    "vue3",
+    "tiptap",
+    "tdesign",
+    "tdesign-vue-next",
+    "富文本",
+    "编辑器"
+  ],
+  "license": "MIT",
+  "scripts": {
+    "dev": "vite",
+    "build:lib": "vue-tsc && vite build",
+    "build:demo": "vue-tsc && cross-env VITE_BUILD_TAG=demo vite build",
+    "preview": "cross-env VITE_BUILD_TAG=demo vite preview"
+  },
+  "main": "./lib/tdesign-tiptap.umd.cjs",
+  "module": "./lib/tdesign-tiptap.js",
+  "files": [
+    "lib/*"
+  ],
+  "types": "./lib/index.d.ts",
+  "dependencies": {
+    "@tiptap/core": "^2.2.4",
+    "@tiptap/extension-blockquote": "^2.2.4",
+    "@tiptap/extension-bold": "^2.2.4",
+    "@tiptap/extension-bullet-list": "^2.2.4",
+    "@tiptap/extension-code": "^2.2.4",
+    "@tiptap/extension-code-block-lowlight": "^2.2.4",
+    "@tiptap/extension-color": "^2.2.4",
+    "@tiptap/extension-document": "^2.2.4",
+    "@tiptap/extension-heading": "^2.2.4",
+    "@tiptap/extension-highlight": "^2.2.4",
+    "@tiptap/extension-horizontal-rule": "^2.2.4",
+    "@tiptap/extension-image": "^2.2.4",
+    "@tiptap/extension-italic": "^2.2.4",
+    "@tiptap/extension-link": "^2.2.4",
+    "@tiptap/extension-list-item": "^2.2.4",
+    "@tiptap/extension-ordered-list": "^2.2.4",
+    "@tiptap/extension-paragraph": "^2.2.4",
+    "@tiptap/extension-strike": "^2.2.4",
+    "@tiptap/extension-text": "^2.2.4",
+    "@tiptap/extension-text-align": "^2.2.4",
+    "@tiptap/extension-text-style": "^2.2.4",
+    "@tiptap/extension-underline": "^2.2.4",
+    "@tiptap/vue-3": "^2.2.4",
+    "lowlight": "^3.1.0",
+    "tdesign-vue-next": "1.5.7",
+    "vue": "^3.4.21"
+  },
+  "devDependencies": {
+    "@types/node": "^20.11.30",
+    "@vitejs/plugin-vue": "^5.0.4",
+    "cross-env": "^7.0.3",
+    "sass": "^1.72.0",
+    "typescript": "^5.2.2",
+    "vite": "^5.2.0",
+    "vite-plugin-compression": "^0.5.1",
+    "vite-plugin-dts": "^3.7.3",
+    "vite-svg-loader": "^5.1.0",
+    "vue-tsc": "^2.0.6"
+  },
+  "peerDependencies": {
+    "tdesign-vue-next": ">= 1.5.7",
+    "vue": ">= 3.0.0"
+  },
+  "bugs": {
+    "url": "https://github.com/ry0513/tdesign-tiptap/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ry0513/tdesign-tiptap.git"
+  },
+  "homepage": "https://github.com/ry0513/tdesign-tiptap#readme"
+}
