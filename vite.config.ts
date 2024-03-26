@@ -39,13 +39,13 @@ export default defineConfig({
           entry: path.resolve(path.resolve(__dirname, "src"), "index.ts"),
           name: "TdesignTiptap",
           fileName: "tdesign-tiptap",
+          formats: ["es"],
         },
         rollupOptions: {
           external: ["vue"],
           output: {
             exports: "named",
             inlineDynamicImports: true,
-            globals: { vue: "vue" },
           },
         },
       },

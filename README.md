@@ -5,8 +5,10 @@
 - 基于 [tiptap](https://github.com/ueberdosis/tiptap) 富文本编辑器
 - 使用 [tdesign-vue-next](https://tdesign.tencent.com/vue-next) 组件库
 - 支持 TypeScript 
+- 仅支持 ESM (export/import)
 
 ## Demo
+
 [https://demo.tnloy.cc/tdesign-tiptap](https://demo.tnloy.cc/tdesign-tiptap)
 
 ## 文档
