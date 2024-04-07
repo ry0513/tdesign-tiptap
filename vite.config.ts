@@ -25,7 +25,7 @@ export default defineConfig({
     alias: [
       {
         find: "tdesign-tiptap",
-        replacement: path.resolve(__dirname, "src/index.ts"),
+        replacement: path.resolve(__dirname, "src"),
       },
     ],
   },

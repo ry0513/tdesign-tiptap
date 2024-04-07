@@ -1,12 +1,28 @@
-import { Editor, Extension } from "@tiptap/core";
-import TiptapHighlight from "@tiptap/extension-highlight";
-import CommandColor from "../components/MenuCommands/Color/Color.vue";
-import { HighlightOptions } from "../types/extensionOptions";
+import { Editor, Extension, Mark, mergeAttributes } from "@tiptap/core";
+import { ExtensionsOption } from "../types/extensionOption";
 import { colorOptions } from "../option";
 
-const Highlight = TiptapHighlight.extend<HighlightOptions>({
+import CommandColor from "../components/MenuCommands/Color/Color.vue";
+
+export interface HighlightOptions extends ExtensionsOption {
+  colorOptions?: string[][];
+}
+
+declare module "@tiptap/core" {
+  interface Commands<ReturnType> {
+    highlight: {
+      setHighlight: (attributes?: { color: string }) => ReturnType;
+      unsetHighlight: () => ReturnType;
+    };
+  }
+}
+
+export const Highlight = Mark.create<HighlightOptions>({
+  name: "highlight",
+
   addOptions() {
     return {
+      HTMLAttributes: {},
       bubble: false,
       bar: true,
       colorOptions,
@@ -36,19 +52,46 @@ const Highlight = TiptapHighlight.extend<HighlightOptions>({
     return {
       color: {
         default: null,
-        parseHTML: (element) =>
-          element.getAttribute("data-color") || element.style.backgroundColor,
+        parseHTML: (element) => element.style.backgroundColor,
         renderHTML: (attributes) => {
           if (!attributes.color) {
             return {};
           }
-
           return {
-            "data-color": attributes.color,
-            style: `background-color: ${attributes.color}; color: inherit`,
+            style: `background-color: ${attributes.color}; `,
           };
         },
       },
+    };
+  },
+
+  parseHTML() {
+    return [
+      {
+        tag: "mark",
+      },
+    ];
+  },
+
+  renderHTML({ HTMLAttributes }) {
+    return [
+      "mark",
+      mergeAttributes(this.options.HTMLAttributes, HTMLAttributes),
+      0,
+    ];
+  },
+
+  addCommands() {
+    return {
+      setHighlight:
+        (attributes) =>
+        ({ commands }) =>
+          commands.setMark(this.name, attributes),
+
+      unsetHighlight:
+        () =>
+        ({ commands }) =>
+          commands.unsetMark(this.name),
     };
   },
 });

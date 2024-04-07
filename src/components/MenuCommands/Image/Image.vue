@@ -8,6 +8,7 @@
         if (isActive) dialogShow = true;
       }
     "
+    ref="buttonGroup"
   >
     <template #title>
       <RIcon name="image" />
@@ -15,13 +16,19 @@
     <template #content>
       <CommandButtonGroupItem
         icon="image"
-        @click="dialogShow = true"
+        @click="
+          dialogShow = true;
+          buttonGroup!.close();
+        "
         v-if="!isActive && extension.options.types.includes('network')"
         >网络图片</CommandButtonGroupItem
       >
       <CommandButtonGroupItem
         icon="upload"
-        @click="uploadImage"
+        @click="
+          uploadImage();
+          buttonGroup!.close();
+        "
         v-if="!isActive && extension.options.types.includes('upload')"
         >上传图片</CommandButtonGroupItem
       >
@@ -58,7 +65,7 @@ const props = withDefaults(
     icon: "",
   }
 );
-
+const buttonGroup = ref<{ close: Function } | null>(null);
 const dialogShow = ref(false);
 const uploadImage = () => {
   const fileInput = document.createElement("input");

@@ -2,12 +2,12 @@
   <div v-if="load" class="t-tiptap">
     <MenuBar
       :editor="editor.getTiptap()"
-      :extensions="editor.getExtensions()"
+      :extensions="editor.getButtonExtensions()"
     />
     <div ref="tiptapContent" class="t-tiptap__content t-tiptap__scroll">
       <MenuBubble
         :editor="editor.getTiptap()"
-        :extensions="editor.getExtensions()"
+        :extensions="editor.getButtonExtensions()"
         :tiptapContent="tiptapContent"
       />
       <EditorContent :editor="editor.getTiptap()" />
@@ -21,8 +21,6 @@ import { EditorContent } from "@tiptap/vue-3";
 import EditorConfig from "./editorConfig";
 import MenuBar from "../MenuBar/index.vue";
 import MenuBubble from "../MenuBubble/index.vue";
-import "../../styles/editor.scss";
-import "../../styles/index.scss";
 defineProps<{ editor: EditorConfig }>();
 const load = ref(false);
 const tiptapContent = ref<Element | null>(null);

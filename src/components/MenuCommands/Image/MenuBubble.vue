@@ -7,7 +7,7 @@
     :isActive="false"
   />
   <component
-    v-for="(spec, i) in generateCommandButtonComponentSpecs()"
+    v-for="(spec, i) in generateCommandButtonComponentSpecs"
     :key="'command-button-image' + i"
     :is="spec.component"
     v-bind="spec.componentProps"
@@ -23,7 +23,7 @@
 <script lang="ts" setup>
 import { Editor, Extensions } from "@tiptap/vue-3";
 import ImageReSize from "./ImageReSize.vue";
-import { ref } from "vue";
+import { computed, ref } from "vue";
 import ImageDialog from "./ImageDialog.vue";
 import CommandButton from "../CommandButton.vue";
 
@@ -38,8 +38,7 @@ const props = withDefaults(
 );
 
 const dialogShow = ref(false);
-
-const generateCommandButtonComponentSpecs = () => {
+const generateCommandButtonComponentSpecs = computed(() => {
   const extension = props.extensions.filter(
     (extension) => extension.name === "textAlign"
   )[0];
@@ -51,5 +50,5 @@ const generateCommandButtonComponentSpecs = () => {
     editor: props.editor,
     extension,
   });
-};
+});
 </script>

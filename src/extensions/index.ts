@@ -15,5 +15,7 @@ export { default as Highlight } from "./highlight";
 export { default as Image } from "./image";
 export { default as Link } from "./link";
 
-// export { default as HeadingGroup } from "./heading-group";
-// export { default as Divider } from "./divider";
+export { default as TextStyle } from "./text-style";
+export { default as ListItem } from "./list-item";
+
+export { default as Divider } from "./divider";

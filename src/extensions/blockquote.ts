@@ -1,11 +1,24 @@
-import { Editor } from "@tiptap/core";
-import TiptapBlockquote from "@tiptap/extension-blockquote";
-import CommandButton from "../components/MenuCommands/CommandButton.vue";
-import { BlockquoteOptions } from "../types/extensionOptions";
+import { Editor, mergeAttributes, Node } from "@tiptap/core";
+import { ExtensionsOption } from "../types/extensionOption";
 
-const Blockquote = TiptapBlockquote.extend<BlockquoteOptions>({
+import CommandButton from "../components/MenuCommands/CommandButton.vue";
+
+export interface BlockquoteOptions extends ExtensionsOption {}
+
+declare module "@tiptap/core" {
+  interface Commands<ReturnType> {
+    blockQuote: {
+      toggleBlockquote: () => ReturnType;
+    };
+  }
+}
+
+const Blockquote = Node.create<BlockquoteOptions>({
+  name: "blockquote",
+
   addOptions() {
     return {
+      HTMLAttributes: {},
       bubble: false,
       bar: true,
       button({ editor }: { editor: Editor }) {
@@ -25,6 +38,33 @@ const Blockquote = TiptapBlockquote.extend<BlockquoteOptions>({
           },
         };
       },
+    };
+  },
+
+  content: "block+",
+
+  group: "block",
+
+  defining: true,
+
+  parseHTML() {
+    return [{ tag: "blockquote" }];
+  },
+
+  renderHTML({ HTMLAttributes }) {
+    return [
+      "blockquote",
+      mergeAttributes(this.options.HTMLAttributes, HTMLAttributes),
+      0,
+    ];
+  },
+
+  addCommands() {
+    return {
+      toggleBlockquote:
+        () =>
+        ({ commands }) =>
+          commands.toggleWrap(this.name),
     };
   },
 });

@@ -1,11 +1,33 @@
-import { Editor, Extension } from "@tiptap/core";
-import TiptapImage from "@tiptap/extension-image";
-import CommandImage from "../components/MenuCommands/Image/Image.vue";
-import { ImageOptions } from "../types/extensionOptions";
+import { Editor, Extension, mergeAttributes, Node } from "@tiptap/core";
+import { ExtensionsOption } from "../types/extensionOption";
 
-const Image = TiptapImage.extend<ImageOptions>({
+import CommandImage from "../components/MenuCommands/Image/Image.vue";
+
+export type InsertImageFn = (data: { url: string; alt: string }) => void;
+export interface ImageOptions extends ExtensionsOption {
+  sizeOption: { small: string; middle: string; big: string };
+  types: ("network" | "upload")[];
+  customUpload?: (file: File, insertFn: InsertImageFn) => void;
+}
+
+declare module "@tiptap/core" {
+  interface Commands<ReturnType> {
+    image: {
+      setImage: (options: {
+        src: string;
+        alt?: string;
+        title?: string;
+      }) => ReturnType;
+    };
+  }
+}
+
+const Image = Node.create<ImageOptions>({
+  name: "image",
+
   addOptions() {
     return {
+      HTMLAttributes: {},
       bubble: false,
       bar: true,
       types: ["network", "upload"],
@@ -32,30 +54,40 @@ const Image = TiptapImage.extend<ImageOptions>({
       },
     };
   },
+
   inline() {
     return true;
   },
+
   group() {
     return "inline";
   },
+
+  draggable: true,
+
   addStorage() {
     return {
       list: [],
     };
   },
-  addCommands() {
+
+  addAttributes() {
     return {
-      setImage:
-        (options) =>
-        ({ commands }) => {
-          this.storage.list.push(options.src);
-          return commands.insertContent({
-            type: this.name,
-            attrs: options,
-          });
-        },
+      src: {
+        default: null,
+      },
+      alt: {
+        default: null,
+      },
+      title: {
+        default: null,
+      },
+      width: {
+        default: "50%",
+      },
     };
   },
+
   parseHTML() {
     return [
       {
@@ -67,12 +99,24 @@ const Image = TiptapImage.extend<ImageOptions>({
       },
     ];
   },
-  addAttributes() {
+
+  renderHTML({ HTMLAttributes }) {
+    return [
+      "img",
+      mergeAttributes(this.options.HTMLAttributes, HTMLAttributes),
+    ];
+  },
+
+  addCommands() {
     return {
-      ...this.parent?.(),
-      width: {
-        default: "50%",
-      },
+      setImage:
+        (options) =>
+        ({ commands }) => {
+          return commands.insertContent({
+            type: this.name,
+            attrs: options,
+          });
+        },
     };
   },
 });

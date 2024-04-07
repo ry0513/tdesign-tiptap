@@ -56,8 +56,11 @@ watch(
   () => props.show,
   () => {
     if (props.editor.isActive("image")) {
-      const { src, alt } = props.editor.getAttributes("image");
-      newAttrs.value = { src, alt };
+      newAttrs.value = props.editor.getAttributes("image") as {
+        src: "";
+        alt: "";
+        width: "";
+      };
     } else {
       newAttrs.value = { src: "", alt: "" };
     }

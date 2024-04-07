@@ -1,11 +1,24 @@
-import { Editor } from "@tiptap/core";
-import TiptapUnderline from "@tiptap/extension-underline";
-import CommandButton from "../components/MenuCommands/CommandButton.vue";
-import { UnderlineOptions } from "../types/extensionOptions";
+import { Editor, Mark, mergeAttributes } from "@tiptap/core";
+import { ExtensionsOption } from "../types/extensionOption";
 
-const Underline = TiptapUnderline.extend<UnderlineOptions>({
+import CommandButton from "../components/MenuCommands/CommandButton.vue";
+
+export interface UnderlineOptions extends ExtensionsOption {}
+
+declare module "@tiptap/core" {
+  interface Commands<ReturnType> {
+    underline: {
+      toggleUnderline: () => ReturnType;
+    };
+  }
+}
+
+export const Underline = Mark.create<UnderlineOptions>({
+  name: "underline",
+
   addOptions() {
     return {
+      HTMLAttributes: {},
       bubble: false,
       bar: true,
       button({ editor }: { editor: Editor }) {
@@ -21,6 +34,31 @@ const Underline = TiptapUnderline.extend<UnderlineOptions>({
           },
         };
       },
+    };
+  },
+
+  parseHTML() {
+    return [
+      {
+        tag: "u",
+      },
+    ];
+  },
+
+  renderHTML({ HTMLAttributes }) {
+    return [
+      "u",
+      mergeAttributes(this.options.HTMLAttributes, HTMLAttributes),
+      0,
+    ];
+  },
+
+  addCommands() {
+    return {
+      toggleUnderline:
+        () =>
+        ({ commands }) =>
+          commands.toggleMark(this.name),
     };
   },
 });

@@ -24,7 +24,7 @@
   </BubbleMenu>
 
   <BubbleMenu
-    v-if="editor"
+    v-if="editor && generateCommandButtonComponentSpecs.length > 0"
     :editor="editor"
     :update-delay="0"
     :tippy-options="tippyOptions"
@@ -32,7 +32,7 @@
   >
     <div class="t-tiptap__menu-bubble t-tiptap__scroll">
       <component
-        v-for="(spec, i) in generateCommandButtonComponentSpecs()"
+        v-for="(spec, i) in generateCommandButtonComponentSpecs"
         :key="'command-button' + i"
         :is="spec.component"
         v-bind="spec.componentProps"
@@ -52,6 +52,8 @@ import {
 } from "@tiptap/vue-3";
 import LinkMenuBubble from "../MenuCommands/Link/MenuBubble.vue";
 import ImageMenuBubble from "../MenuCommands/Image/MenuBubble.vue";
+
+import { computed } from "vue";
 
 const props = withDefaults(
   defineProps<{
@@ -89,7 +91,7 @@ const isButtonVisible = (name: string) => {
   });
 };
 
-const generateCommandButtonComponentSpecs = () => {
+const generateCommandButtonComponentSpecs = computed(() => {
   const extensionManager = props.extensions;
   return extensionManager.reduce((acc, extension) => {
     if (extension.options.bubble !== true) return acc;
@@ -107,7 +109,7 @@ const generateCommandButtonComponentSpecs = () => {
 
     return [...acc, menuBtnComponentSpec];
   }, [] as any[]);
-};
+});
 
 const shouldShow = (name: string | string[]) => {
   return ({ editor, view, state, from, to }: any) => {

@@ -1,12 +1,23 @@
-import { Editor, wrappingInputRule } from "@tiptap/core";
-import TiptapBulletList, { inputRegex } from "@tiptap/extension-bullet-list";
-import CommandButton from "../components/MenuCommands/CommandButton.vue";
-import ListItem from "./list-item";
-import { BulletListOptions } from "../types/extensionOptions";
+import { Editor, mergeAttributes, Node } from "@tiptap/core";
+import { ExtensionsOption } from "../types/extensionOption";
 
-const BulletList = TiptapBulletList.extend<BulletListOptions>({
+import CommandButton from "../components/MenuCommands/CommandButton.vue";
+
+export interface BulletListOptions extends ExtensionsOption {}
+
+declare module "@tiptap/core" {
+  interface Commands<ReturnType> {
+    bulletList: {
+      toggleBulletList: () => ReturnType;
+    };
+  }
+}
+
+const BulletList = Node.create<BulletListOptions>({
+  name: "bulletList",
   addOptions() {
     return {
+      HTMLAttributes: {},
       bubble: false,
       bar: true,
       button({ editor }: { editor: Editor }) {
@@ -17,6 +28,7 @@ const BulletList = TiptapBulletList.extend<BulletListOptions>({
               editor.commands.toggleBulletList();
             },
             isActive: editor.isActive("bulletList"),
+            isDisabled: editor.isActive("blockquote"),
             icon: "list-ul",
             tooltip: "无序列表",
           },
@@ -24,9 +36,23 @@ const BulletList = TiptapBulletList.extend<BulletListOptions>({
       },
     };
   },
-  content() {
-    return "listItem+";
+
+  group: "block list",
+
+  content: "listItem+",
+
+  parseHTML() {
+    return [{ tag: "ul" }];
   },
+
+  renderHTML({ HTMLAttributes }) {
+    return [
+      "ul",
+      mergeAttributes(this.options.HTMLAttributes, HTMLAttributes),
+      0,
+    ];
+  },
+
   addCommands() {
     return {
       toggleBulletList:
@@ -35,17 +61,6 @@ const BulletList = TiptapBulletList.extend<BulletListOptions>({
           return commands.toggleList(this.name, "listItem", false);
         },
     };
-  },
-  addInputRules() {
-    let inputRule = wrappingInputRule({
-      find: inputRegex,
-      type: this.type,
-    });
-    return [inputRule];
-  },
-
-  addExtensions() {
-    return [ListItem];
   },
 });
 

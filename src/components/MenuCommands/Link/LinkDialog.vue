@@ -11,7 +11,11 @@
     <template #body>
       <Form :labelWidth="64">
         <FormItem label="URL">
-          <Input placeholder="请输入URL" v-model="newAttrs.href" />
+          <Input
+            placeholder="请输入URL"
+            v-model="newAttrs.href"
+            @mousedown.prevent
+          />
         </FormItem>
         <FormItem label="新窗口">
           <Switch
@@ -24,8 +28,12 @@
     <template #footer>
       <Button
         @click="
-          editor.commands.setLink(newAttrs);
-          editor.commands.focus();
+          editor
+            .chain()
+            .focus()
+            .extendMarkRange('link')
+            .setLink(newAttrs)
+            .run();
           $emit('close');
         "
         >确定</Button
@@ -55,7 +63,7 @@ const props = withDefaults(
     show: false,
   }
 );
-defineEmits<{
+const emits = defineEmits<{
   close: [void];
 }>();
 
@@ -63,14 +71,16 @@ const newAttrs = ref({ href: "", target: "_blank" });
 
 watch(
   () => props.show,
-  () => {
-    if (props.editor.isActive("link")) {
-      newAttrs.value = props.editor.getAttributes("link") as {
-        href: string;
-        target: string;
-      };
-    } else {
-      newAttrs.value = { href: "", target: "_blank" };
+  (newData) => {
+    if (newData) {
+      if (props.editor.isActive("link")) {
+        newAttrs.value = props.editor.getAttributes("link") as {
+          href: string;
+          target: string;
+        };
+      } else {
+        newAttrs.value = { href: "", target: "_blank" };
+      }
     }
   }
 );

@@ -1,13 +1,28 @@
 import { Editor, Extension } from "@tiptap/core";
-import TextStyle from "@tiptap/extension-text-style";
-import { Color as TiptapColor } from "@tiptap/extension-color";
-import CommandColor from "../components/MenuCommands/Color/Color.vue";
-import { ColorOptions } from "../types/extensionOptions";
+import { ExtensionsOption } from "../types/extensionOption";
 import { colorOptions } from "../option";
 
-const Color = TiptapColor.extend<ColorOptions>({
+import CommandColor from "../components/MenuCommands/Color/Color.vue";
+
+export interface ColorOptions extends Omit<ExtensionsOption, "HTMLAttributes"> {
+  colorOptions?: string[][];
+}
+
+declare module "@tiptap/core" {
+  interface Commands<ReturnType> {
+    color: {
+      setColor: (color: string) => ReturnType;
+      unsetColor: () => ReturnType;
+    };
+  }
+}
+
+const Color = Extension.create<ColorOptions>({
+  name: "color",
+
   addOptions() {
     return {
+      types: ["textStyle"],
       bubble: false,
       bar: true,
       colorOptions,
@@ -32,6 +47,7 @@ const Color = TiptapColor.extend<ColorOptions>({
       },
     };
   },
+
   addGlobalAttributes() {
     return [
       {
@@ -53,9 +69,23 @@ const Color = TiptapColor.extend<ColorOptions>({
       },
     ];
   },
-  addExtensions() {
-    return [TextStyle];
+
+  addCommands() {
+    return {
+      setColor:
+        (color) =>
+        ({ chain }) => {
+          return chain().setMark("textStyle", { color }).run();
+        },
+      unsetColor:
+        () =>
+        ({ chain }) => {
+          return chain()
+            .setMark("textStyle", { color: null })
+            .removeEmptyTextStyle()
+            .run();
+        },
+    };
   },
 });
-
 export default Color;

@@ -1,7 +1,7 @@
 <template>
   <div class="t-tiptap__menu-bar t-tiptap__scroll">
     <component
-      v-for="(spec, i) in generateCommandButtonComponentSpecs()"
+      v-for="(spec, i) in generateCommandButtonComponentSpecs"
       :key="'command-button' + i"
       :is="spec.component"
       v-bind="spec.componentProps"
@@ -12,6 +12,7 @@
 
 <script lang="ts" setup>
 import { Editor, Extensions } from "@tiptap/vue-3";
+import { computed } from "vue";
 
 const props = withDefaults(
   defineProps<{
@@ -22,8 +23,7 @@ const props = withDefaults(
     extensions: () => [],
   }
 );
-
-const generateCommandButtonComponentSpecs = () => {
+const generateCommandButtonComponentSpecs = computed(() => {
   const extensionManager = props.extensions;
   return extensionManager.reduce((acc, extension) => {
     if (extension.options.bar === false) return acc;
@@ -36,7 +36,8 @@ const generateCommandButtonComponentSpecs = () => {
     if (Array.isArray(menuBtnComponentSpec)) {
       return [...acc, ...menuBtnComponentSpec];
     }
+
     return [...acc, menuBtnComponentSpec];
   }, [] as any[]);
-};
+});
 </script>

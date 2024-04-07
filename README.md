@@ -7,10 +7,14 @@
 - 支持 TypeScript 
 - 仅支持 ESM (export/import)
 
-## Demo
+## Demo 
+
+托管在 Github
 
 [https://demo.tnloy.cc/tdesign-tiptap](https://demo.tnloy.cc/tdesign-tiptap)
 
 ## 文档
+
+托管在 Github
 
 [https://tdesign-tiptap.tnloy.cc/](https://tdesign-tiptap.tnloy.cc)

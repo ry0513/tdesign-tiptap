@@ -1,11 +1,24 @@
-import { Editor } from "@tiptap/core";
-import TiptapStrike from "@tiptap/extension-strike";
-import CommandButton from "../components/MenuCommands/CommandButton.vue";
-import { StrikeOptions } from "../types/extensionOptions";
+import { Editor, Mark, mergeAttributes } from "@tiptap/core";
+import { ExtensionsOption } from "../types/extensionOption";
 
-const Strike = TiptapStrike.extend<StrikeOptions>({
+import CommandButton from "../components/MenuCommands/CommandButton.vue";
+
+export interface StrikeOptions extends ExtensionsOption {}
+
+declare module "@tiptap/core" {
+  interface Commands<ReturnType> {
+    strike: {
+      toggleStrike: () => ReturnType;
+    };
+  }
+}
+
+const Strike = Mark.create<StrikeOptions>({
+  name: "strike",
+
   addOptions() {
     return {
+      HTMLAttributes: {},
       bubble: false,
       bar: true,
       button({ editor }: { editor: Editor }) {
@@ -21,6 +34,31 @@ const Strike = TiptapStrike.extend<StrikeOptions>({
           },
         };
       },
+    };
+  },
+
+  parseHTML() {
+    return [
+      {
+        tag: "s",
+      },
+    ];
+  },
+
+  renderHTML({ HTMLAttributes }) {
+    return [
+      "s",
+      mergeAttributes(this.options.HTMLAttributes, HTMLAttributes),
+      0,
+    ];
+  },
+
+  addCommands() {
+    return {
+      toggleStrike:
+        () =>
+        ({ commands }) =>
+          commands.toggleMark(this.name),
     };
   },
 });

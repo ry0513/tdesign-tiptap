@@ -1,11 +1,24 @@
-import { Editor } from "@tiptap/core";
-import TiptapCode from "@tiptap/extension-code";
-import CommandButton from "../components/MenuCommands/CommandButton.vue";
-import { CodeOptions } from "../types/extensionOptions";
+import { Editor, Mark, mergeAttributes } from "@tiptap/core";
+import { ExtensionsOption } from "../types/extensionOption";
 
-const Code = TiptapCode.extend<CodeOptions>({
+import CommandButton from "../components/MenuCommands/CommandButton.vue";
+
+export interface CodeOptions extends ExtensionsOption {}
+
+declare module "@tiptap/core" {
+  interface Commands<ReturnType> {
+    code: {
+      toggleCode: () => ReturnType;
+    };
+  }
+}
+
+const Code = Mark.create<CodeOptions>({
+  name: "code",
+
   addOptions() {
     return {
+      HTMLAttributes: {},
       bubble: false,
       bar: true,
       button({ editor }: { editor: Editor }) {
@@ -24,6 +37,32 @@ const Code = TiptapCode.extend<CodeOptions>({
       },
     };
   },
-});
 
+  excludes: "_",
+
+  code: true,
+
+  exitable: true,
+
+  parseHTML() {
+    return [{ tag: "code" }];
+  },
+
+  renderHTML({ HTMLAttributes }) {
+    return [
+      "code",
+      mergeAttributes(this.options.HTMLAttributes, HTMLAttributes),
+      0,
+    ];
+  },
+
+  addCommands() {
+    return {
+      toggleCode:
+        () =>
+        ({ commands }) =>
+          commands.toggleMark(this.name),
+    };
+  },
+});
 export default Code;

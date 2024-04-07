@@ -8,7 +8,7 @@
     }"
   >
     <template #icon>
-      <RIcon :name="icon" />
+      <RIcon :name="icon" v-if="icon" />
     </template>
     <slot />
   </Button>
