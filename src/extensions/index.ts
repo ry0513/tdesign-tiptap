@@ -6,6 +6,7 @@ export { default as Underline } from "./underline";
 export { default as Blockquote } from "./blockquote";
 export { default as HorizontalRule } from "./horizontal-rule";
 export { default as Code } from "./code";
+export { default as CodeBlock } from "./code-block";
 export { default as CodeBlockLowlight } from "./code-block-lowlight";
 export { default as BulletList } from "./bullet-list";
 export { default as OrderedList } from "./ordered-list";

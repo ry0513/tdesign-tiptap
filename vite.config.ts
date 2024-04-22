@@ -21,14 +21,6 @@ export default defineConfig({
         }),
     svgLoader(),
   ],
-  resolve: {
-    alias: [
-      {
-        find: "tdesign-tiptap",
-        replacement: path.resolve(__dirname, "src"),
-      },
-    ],
-  },
   publicDir: isDemo ? "public" : false,
   build: isDemo
     ? undefined

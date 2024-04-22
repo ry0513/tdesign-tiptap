@@ -1,6 +1,6 @@
 {
   "name": "tdesign-tiptap",
-  "version": "0.4.0",
+  "version": "0.4.1",
   "type": "module",
   "author": "RuoYu",
   "description": "A rich-text editor using tiptap and tdesign for Vue3",

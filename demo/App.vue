@@ -32,7 +32,7 @@ import {
   TextStyle,
   ListItem,
   Divider,
-} from "tdesign-tiptap";
+} from "../src/index";
 import { onBeforeUnmount } from "vue";
 
 const editor = new EditorConfig({

@@ -7,8 +7,6 @@ import "../styles/codeBlock.scss";
 
 export interface CodeBlockOptions extends ExtensionsOption {
   languageClassPrefix: string;
-  exitOnTripleEnter: boolean;
-  exitOnArrowDown: boolean;
   defaultLanguage: string;
 }
 
@@ -125,10 +123,6 @@ const CodeBlock = Node.create<CodeBlockOptions>({
       },
 
       Enter: ({ editor }) => {
-        if (!this.options.exitOnTripleEnter) {
-          return false;
-        }
-
         const { state } = editor;
         const { selection } = state;
         const { $from, empty } = selection;
@@ -156,10 +150,6 @@ const CodeBlock = Node.create<CodeBlockOptions>({
       },
 
       ArrowDown: ({ editor }) => {
-        if (!this.options.exitOnArrowDown) {
-          return false;
-        }
-
         const { state } = editor;
         const { selection, doc } = state;
         const { $from, empty } = selection;
@@ -226,26 +216,25 @@ const CodeBlock = Node.create<CodeBlockOptions>({
               return false;
             }
 
-            const { tr } = view.state;
-
-            // create an empty code block
-            tr.replaceSelectionWith(this.type.create({ language }));
-
-            // put cursor inside the newly created code block
-            tr.setSelection(
-              TextSelection.near(
-                tr.doc.resolve(Math.max(0, tr.selection.from - 2))
+            const { tr, schema } = view.state;
+            tr.replaceSelectionWith(
+              this.type.create(
+                { language },
+                schema.text(text.replace(/\r\n?/g, "\n"))
               )
             );
 
-            // add text to code block
-            // strip carriage return chars from text pasted as code
-            // see: https://github.com/ProseMirror/prosemirror-view/commit/a50a6bcceb4ce52ac8fcc6162488d8875613aacd
-            tr.insertText(text.replace(/\r\n?/g, "\n"));
+            const { selection } = tr;
+            // Whether the current position is code block, if not, move forward to code block.
+            let codeBlockPos = Math.max(0, selection.from - 1);
+            while (
+              codeBlockPos > 0 &&
+              tr.doc.resolve(codeBlockPos).parent.type.name !== this.type.name
+            ) {
+              codeBlockPos--;
+            }
 
-            // store meta information
-            // this is useful for other plugins that depends on the paste event
-            // like the paste rule plugin
+            tr.setSelection(TextSelection.near(tr.doc.resolve(codeBlockPos)));
             tr.setMeta("paste", true);
 
             view.dispatch(tr);
