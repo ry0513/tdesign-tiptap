@@ -81,7 +81,7 @@ const Heading = Node.create<HeadingOptions>({
 
   parseHTML() {
     return this.options.levels.map((level: Level) => ({
-      tag: `h${level}`,
+      tag: level,
       attrs: { level },
     }));
   },
