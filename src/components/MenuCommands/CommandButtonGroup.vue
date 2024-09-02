@@ -4,9 +4,14 @@
     ref="bottomGroupPopup"
     destroyOnClose
     placement="bottom"
-    :zIndex="100"
+    :zIndex="2000"
   >
-    <Tooltip :content="tooltip" placement="bottom" destroyOnClose :zIndex="100">
+    <Tooltip
+      :content="tooltip"
+      placement="bottom"
+      destroyOnClose
+      :zIndex="2000"
+    >
       <Button
         variant="text"
         class="t-tiptap__menu-button"
